@@ -1,0 +1,15 @@
+<div 
+  *ngIf="!loading"
+  class="ow-icon-container">
+  <img class="ow-icon-element ow-hero" src="{{heroURL}}">
+  <img class="ow-icon-element ow-frame" src="{{frameURL}}">
+  <img class="ow-icon-element ow-star" src="{{starURL}}">
+  <img class="ow-icon-element ow-rank" src="{{rankURL}}">
+  <div class="ow-icon-element ow-level">{{level}}</div>
+  <div class="ow-icon-element ow-name">{{username}}</div>
+</div>
+<div 
+  *ngIf="loading"
+  class="spinner-container">
+    <i class=" fa fa-spinner fa-3x fa-spin"></i>
+</div>

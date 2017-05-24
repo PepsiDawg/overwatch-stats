@@ -1,0 +1,62 @@
+.ow-icon-container {
+    width: 150px;
+    height: 200px;
+    position: relative;
+    font-size: calc(150px / 6);
+    background: #e1e1e1;
+    border-radius: 10px;
+    border: 5px solid #515151;
+}
+
+.spinner-container {
+    text-align: center;
+    width: 150px;
+    height: 200px;
+}
+
+.ow-icon-element {
+    position: absolute;
+}
+
+.ow-rank {
+    width: 25%;
+    bottom: 0;
+    right: 0;
+}
+
+.ow-frame {
+    width: 100%;
+    height: auto;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.ow-hero {
+    top: 48%;
+    left: 50%;
+    width: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.ow-star {
+    width: 100%;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ow-level {
+    bottom: 0px;
+    left: 5px;
+    color: #515151;
+}
+
+.ow-name {
+    transform: translate(-50%, 0%);
+    color: #515151;
+    width: 100%;
+    top: 2%;
+    left: 50%;
+    text-align: center;
+}

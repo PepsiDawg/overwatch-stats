@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OwIconComponent } from './shared/components/ow-icon/ow-icon.component';
 
 @Component({
   selector: 'app-root',
