@@ -20,8 +20,11 @@ export class FirebaseService {
   }
 
   getCurrentUser() {
-    this._user = this._db.object('/users/' + this._auth.auth.currentUser.uid) as FirebaseObjectObservable<User>;
-    return this._user;
+    if(this._auth.auth.currentUser) {
+      this._user = this._db.object('/users/' + this._auth.auth.currentUser.uid) as FirebaseObjectObservable<User>;
+      return this._user;
+    }
+    return Observable.throw(new Error("No user found"));
   }
 
   addMatch(map: string, outcome: string, kendrick_sr: number, tim_sr: number) {
@@ -35,7 +38,7 @@ export class FirebaseService {
   }
 
   login() {
-    this._auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    return this._auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(res => {
           let user = {
             timestamp: new Date(),
@@ -53,7 +56,7 @@ export class FirebaseService {
   }
 
   logout() {
-    this._auth.auth.signOut();
+    return this._auth.auth.signOut();
   }
 }
 
