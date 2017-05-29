@@ -8,6 +8,11 @@
   <div class="ow-icon-element ow-level">{{level}}</div>
   <div class="ow-icon-element ow-name">{{username}}</div>
 </div>
+<div>
+  <button (click)="login()">Login</button>
+  <button (click)="logout()">Logout</button>
+  <button (click)="getMatches()">Get Matches</button>
+</div>
 <div 
   *ngIf="loading"
   class="spinner-container">

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OverwatchServices } from '../../services/overwatch.service';
+import { FirebaseService } from '../../services/firebase.service';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -19,7 +20,7 @@ export class OwIconComponent implements OnInit {
   starURL: string;
   heroURL: string;
 
-  constructor(private _overwatchServices: OverwatchServices) { }
+  constructor(private _overwatchServices: OverwatchServices, private _firebaseService: FirebaseService) { }
 
   ngOnInit() {
         Observable.forkJoin(
@@ -40,6 +41,22 @@ export class OwIconComponent implements OnInit {
         }, 
         null,
         () => { this.loading = false; });
+  }
+
+  login() {
+    this._firebaseService.login();
+  }
+
+  logout() {
+    this._firebaseService.logout();
+  }
+
+  getMatches() {
+      this._firebaseService.getMatches()
+      .subscribe(res => {
+        console.log(res);
+      }, err => { console.log(err); },
+      () => { console.log('finished'); });
   }
 
 }
