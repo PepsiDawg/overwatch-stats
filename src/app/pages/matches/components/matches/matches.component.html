@@ -1,3 +1,34 @@
-<p>
-  matches works!
-</p>
+<h1>Matches</h1>
+<table class="table table-striped table-hover" *ngIf="_matches.length > 0">
+  <thead>
+    <th class="text-center">Match</th>
+    <th class="text-center">Map</th>
+    <th class="text-center">Outcome</th>
+    <th class="text-center">Kendrick's SR</th>
+    <th class="text-center">Tim's SR</th>
+  </thead>
+  <tbody>
+    <tr 
+      *ngFor="let match of _matches; let i = index"
+      class="text-center">
+      <td>{{i}}</td>
+      <td>{{match.map}}</td>
+      <td>{{match.outcome}}</td>
+      <td>{{match.kendrick_sr}}</td>
+      <td>{{match.tim_sr}}</td>
+      <td>
+        <a (click)="edit(i)" class="icon-btn">
+          <i class="text-success fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+      </td>
+      <td>
+        <a (click)="removeMatch(i)" class="icon-btn">
+          <i class="text-warning fa fa-minus-circle" aria-hidden="true"></i>
+        </a>    
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="_matches.length <= 0" class="text-center">
+  Currently no matches recorded.
+</div>

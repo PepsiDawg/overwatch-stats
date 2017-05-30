@@ -1,3 +1,26 @@
-<p>
-  match-form works!
-</p>
+<h1>{{title}}</h1>
+<form [formGroup]='form' (ngSubmit)="saveMap()">
+  <div class="form-group">
+    <label for="map">Map</label>
+    <select class="form-control" id="map" formControlName="map">
+      <option *ngFor="let map of maps">{{map}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="outcome">Outcome</label>
+    <select class="form-control" id="outcome" formControlName="outcome" >
+      <option>Won</option>
+      <option>Draw</option>
+      <option>Lost</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="kendrick_sr">Kendrick's SR</label>
+    <input class="form-control" id="kendrick_sr" formControlName="kendrick_sr">
+  </div>
+  <div class="form-group">
+    <label for="tim_sr">Tim's SR</label>
+    <input class="form-control" id="tim_sr" formControlName="tim_sr">
+  </div>
+  <button class="btn btn-default" [disabled]="!form.valid">Save Match</button>
+</form>

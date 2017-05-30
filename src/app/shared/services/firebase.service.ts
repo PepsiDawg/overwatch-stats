@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Rx';
+import { OverwatchServices } from './overwatch.service';
 
 @Injectable()
 export class FirebaseService {
@@ -10,8 +11,7 @@ export class FirebaseService {
   private _user;
   private _temp_admin = ["pepsidawg00@gmail.com"];
 
-  constructor(private _db: AngularFireDatabase, private _auth: AngularFireAuth) { 
-
+  constructor(private _db: AngularFireDatabase, private _auth: AngularFireAuth, private _ow: OverwatchServices) { 
   }
 
   getMatches() {
@@ -19,22 +19,50 @@ export class FirebaseService {
     return this._matches;
   }
 
-  getCurrentUser() {
-    if(this._auth.auth.currentUser) {
-      this._user = this._db.object('/users/' + this._auth.auth.currentUser.uid) as FirebaseObjectObservable<User>;
-      return this._user;
-    }
-    return Observable.throw(new Error("No user found"));
+  getMatch(key) {
+    return this._db.database.ref('/matches/' + key).once('value');
   }
 
-  addMatch(map: string, outcome: string, kendrick_sr: number, tim_sr: number) {
-    let match = {
-      map: map,
-      outcome: outcome,
-      kendrick_sr: kendrick_sr,
-      tim_sr: tim_sr
-    }
+  getUser(uid) {
+      this._user = this._db.object('/users/' + uid) as FirebaseObjectObservable<User>;
+      if(this._user) {
+        return this._user;
+      }
+      return Observable.throw(new Error("No user found"));
+  }
+
+  addMatch(match) {
     this._db.database.ref('/matches/').push(match);
+    this.updateMapOutcome(match.map, match.outcome, 1);
+  }
+
+  updateMatch(key, oldMatch, match) {
+    this._db.database.ref('matches/' + key).update(match);
+    if(oldMatch.outcome != match.outcome) {
+      this.updateMultiOutcome(match.map, oldMatch.outcome, match.outcome);
+    }
+  }
+
+  removeMatch(key: string, map: string, outcome: string) {
+    this._db.database.ref('/matches/' + key).remove();
+    this.updateMapOutcome(map, outcome, -1);
+  }
+
+  updateMultiOutcome(map: string, oldOutcome: string, newOutcome: string) {
+    this._db.database.ref('/maps/' + map).once('value').then(snapshot => {
+        var record = snapshot.val();
+        record[oldOutcome.toLowerCase()] += -1;
+        record[newOutcome.toLowerCase()] += 1;
+        this._db.database.ref('/maps/' + map).update(record);
+    });
+  }
+
+  updateMapOutcome(map: string, outcome: string, value: number) {
+    this._db.database.ref('/maps/' + map).once('value').then(snapshot => {
+        var record = snapshot.val();
+        record[outcome.toLowerCase()] += value;
+        this._db.database.ref('/maps/' + map).update(record);
+    });
   }
 
   login() {
@@ -58,6 +86,12 @@ export class FirebaseService {
   logout() {
     return this._auth.auth.signOut();
   }
+}
+
+interface Map {
+  won: number,
+  draw: number,
+  lost: number
 }
 
 interface User {
