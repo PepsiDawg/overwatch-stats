@@ -15,6 +15,10 @@ export class MatchFormComponent implements OnInit, OnDestroy {
   form : FormGroup;
   match;
   id;
+
+  leaver = false;
+  snowflake = false;
+
   edit = false;
   subscription;
 
@@ -52,6 +56,9 @@ export class MatchFormComponent implements OnInit, OnDestroy {
                 kendrick_sr: this.match.kendrick_sr,
                 tim_sr: this.match.tim_sr
               });
+              this.snowflake = this.match.snowflake;
+              this.leaver = this.match.leaver;
+
               this.edit = true;
             });
       } else {
@@ -65,13 +72,17 @@ export class MatchFormComponent implements OnInit, OnDestroy {
   }
 
   saveMap() {
+    let result = this.form.value;
+    console.log(this.snowflake, this.leaver);
+
+    result["snowflake"] = this.snowflake;
+    result["leaver"] = this.leaver;
+
     if(this.edit) {
-      this._firebase.updateMatch(this.id, this.match, this.form.value);
+      this._firebase.updateMatch(this.id, this.match, result);
       this._router.navigate(['matches']);
     } else {
-      let temp = this.form.value;
-      temp.timestamp = new Date();
-      this._firebase.addMatch(temp);
+      this._firebase.addMatch(result);
       this._router.navigate(['graphs']);
     }
   }

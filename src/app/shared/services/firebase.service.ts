@@ -42,15 +42,18 @@ export class FirebaseService {
       this.updateMultiOutcome(match.map, oldMatch.outcome, match.outcome);
     }
   }
-  
-  updateDatabase() {
-    var matches = this._db.list('/matches') as FirebaseListObservable<Match[]>;
 
-    matches.subscribe(result => {
-      for(let match of result) {
-        console.log(match);
-      }
-    });
+  updateDatabase() {
+    // var matches = this._db.list('/matches') as FirebaseListObservable<Match[]>;
+
+    // matches.subscribe(result => {
+    //   for(let match of result) {
+    //     match["leaver"] = false;
+    //     match["snowflake"] = false;
+    //     console.log(match);
+    //     matches.update(match.$key, match);
+    //   }
+    // });
   }
 
   removeMatch(key: string, map: string, outcome: string) {
@@ -119,4 +122,6 @@ interface Match {
   kendrick_sr: number;
   tim_sr: number;
   group_size: number;
+  leaver: boolean;
+  snowflake: boolean;
 }

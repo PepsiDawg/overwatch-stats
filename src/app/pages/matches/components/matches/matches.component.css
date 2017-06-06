@@ -5,3 +5,11 @@ table {
 .icon-btn {
     cursor: pointer;
 }
+
+.negative {
+    color: #bc4040;
+}
+
+.positive {
+    color: #4da32c;
+}

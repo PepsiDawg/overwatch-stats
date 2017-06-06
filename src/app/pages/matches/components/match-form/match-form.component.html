@@ -22,5 +22,17 @@
     <label for="tim_sr">Tim's SR</label>
     <input class="form-control" id="tim_sr" formControlName="tim_sr">
   </div>
-  <button class="btn btn-default" [disabled]="!form.valid">Save Match</button>
+  <div class="icon-btn-container">
+    <div class="toggle-icon" (click)="leaver = !leaver">
+      <p class="negative" *ngIf="leaver"><i class="fa fa-suitcase fa-3x" aria-hidden="true"></i></p>
+      <p class="positive" *ngIf="!leaver"><i class="fa fa-home fa-3x" aria-hidden="true"></i></p>
+    </div>
+    <div class="toggle-icon" (click)="snowflake = !snowflake">
+      <p class="negative" *ngIf="snowflake"><i class="fa fa-fire-extinguisher fa-3x" aria-hidden="true"></i></p>
+      <p class="positive" *ngIf="!snowflake"><i class="fa fa-snowflake-o fa-3x" aria-hidden="true"></i></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-default" [disabled]="!form.valid">Save Match</button>
+  </div>
 </form>
