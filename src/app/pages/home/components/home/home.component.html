@@ -1,3 +1,6 @@
-<p>
-  home works!
-</p>
+<div class="jumbotron text-center jumbo">
+  <h1>Overwatch Stat Tracker</h1>
+  <p>Stat tracking for Kendrick and Tim</p>
+  <p *ngIf="!_loggedIn"><a (click)="login()" class="btn btn-primary btn-lg">Login</a></p>
+  <p *ngIf="_loggedIn"><a (click)="logout()" class="btn btn-primary btn-lg">Logout</a></p>
+</div>

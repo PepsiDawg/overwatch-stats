@@ -9,7 +9,7 @@ import { OverwatchServices } from './overwatch.service';
 export class FirebaseService {
   private _matches: FirebaseListObservable<Match[]>;
   private _user;
-  private _temp_admin = ["pepsidawg00@gmail.com"];
+  private _temp_admin = ["pepsidawg00@gmail.com", "mysquishyturtle@gmail.com"];
 
   constructor(private _db: AngularFireDatabase, private _auth: AngularFireAuth, private _ow: OverwatchServices) { 
   }
@@ -41,6 +41,16 @@ export class FirebaseService {
     if(oldMatch.outcome != match.outcome) {
       this.updateMultiOutcome(match.map, oldMatch.outcome, match.outcome);
     }
+  }
+  
+  updateDatabase() {
+    var matches = this._db.list('/matches') as FirebaseListObservable<Match[]>;
+
+    matches.subscribe(result => {
+      for(let match of result) {
+        console.log(match);
+      }
+    });
   }
 
   removeMatch(key: string, map: string, outcome: string) {
@@ -103,8 +113,10 @@ interface User {
 
 interface Match {
   $key?:string;
+  timestamp: Date;
   map: string;
   outcome: string;
   kendrick_sr: number;
   tim_sr: number;
+  group_size: number;
 }

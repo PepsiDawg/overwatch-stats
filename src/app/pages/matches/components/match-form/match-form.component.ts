@@ -69,7 +69,9 @@ export class MatchFormComponent implements OnInit, OnDestroy {
       this._firebase.updateMatch(this.id, this.match, this.form.value);
       this._router.navigate(['matches']);
     } else {
-      this._firebase.addMatch(this.form.value);
+      let temp = this.form.value;
+      temp.timestamp = new Date();
+      this._firebase.addMatch(temp);
       this._router.navigate(['graphs']);
     }
   }

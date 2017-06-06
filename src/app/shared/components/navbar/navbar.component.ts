@@ -9,7 +9,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private _loggedIn = false;
+  _loggedIn = false;
 
   constructor(
     private _firebaseService: FirebaseService, 

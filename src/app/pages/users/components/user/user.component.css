@@ -1,0 +1,8 @@
+.user-container {
+    background-color: white;
+    margin-top: 100px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}

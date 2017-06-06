@@ -1,0 +1,11 @@
+<h1 class="title col-md-12 text-center">SR Ranking</h1>
+<div *ngIf="!loading" class="col-md-12 graph-container">
+    <canvas baseChart
+                [datasets]="datasets"
+                [labels]="labels"
+                [colors]="colors"
+                [options]="options"
+                [legend]="true"
+                [chartType]="type"></canvas>
+</div>
+

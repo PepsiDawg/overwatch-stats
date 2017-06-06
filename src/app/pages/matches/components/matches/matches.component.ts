@@ -8,7 +8,7 @@ import { FirebaseService } from '../../../../shared/services/firebase.service';
   styleUrls: ['./matches.component.css']
 })
 export class MatchesComponent implements OnInit {
-  private _matches = [];
+  _matches = [];
   private _loading = true;
 
   constructor(private _firebase: FirebaseService, private _router: Router) { }

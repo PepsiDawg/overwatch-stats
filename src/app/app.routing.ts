@@ -4,6 +4,7 @@ import { GraphsComponent } from './pages/graphs/components/graphs/graphs.compone
 import { MatchesComponent } from './pages/matches/components/matches/matches.component';
 import { MatchFormComponent } from './pages/matches/components/match-form/match-form.component';
 import { HomeComponent } from './pages/home/components/home/home.component';
+import { UserComponent } from './pages/users/components/user/user.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 import { AuthGuard } from './shared/services/auth-guard.service';
@@ -26,5 +27,6 @@ export const routing = RouterModule.forRoot([
         canActivate: [AuthGuard]
     },
     { path: 'graphs', component: GraphsComponent },
+    { path: 'users', component: UserComponent },
     { path: '**', component: NotFoundComponent }
 ])
