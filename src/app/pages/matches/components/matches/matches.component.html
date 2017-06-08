@@ -16,15 +16,32 @@
       <td>{{match.outcome}}</td>
       <td>{{match.kendrick_sr}}</td>
       <td>{{match.tim_sr}}</td>
-      <td class="negative" *ngIf="match.leaver"><i class="fa fa-suitcase" aria-hidden="true"></i>
-</td>
-      <td class="positive" *ngIf="!match.leaver"><i class="fa fa-home" aria-hidden="true"></i>
-</td>
-      <td class="negative" *ngIf="match.snowflake"><i class="fa fa-fire-extinguisher" aria-hidden="true"></i>
-
-</td>
-      <td class="positive" *ngIf="!match.snowflake"><i class="fa fa-snowflake-o" aria-hidden="true"></i>
-</td>
+      <td class="text-center">
+          <i 
+            *ngIf="!match.leaver"
+            class="fa fa-home team-icons positive" 
+            aria-hidden="true"></i>
+          <i 
+            *ngIf="match.leaver"
+            class="fa fa-suitcase team-icons negative" 
+            aria-hidden="true"></i>
+          <i 
+            *ngIf="!match.snowflake"
+            class="fa fa-snowflake-o team-icons positive" 
+            aria-hidden="true"></i>
+          <i 
+            *ngIf="match.snowflake"
+            class="fa fa-fire-extinguisher team-icons negative" 
+            aria-hidden="true"></i>
+          <i 
+            *ngIf="match.communication"
+            class="fa fa-microphone team-icons positive" 
+            aria-hidden="true"></i>
+          <i 
+            *ngIf="!match.communication"
+            class="fa fa-microphone-slash team-icons negative" 
+            aria-hidden="true"></i>
+      </td>
       <td>
         <a (click)="edit(i)" class="icon-btn">
           <i class="text-success fa fa-pencil-square-o" aria-hidden="true"></i>

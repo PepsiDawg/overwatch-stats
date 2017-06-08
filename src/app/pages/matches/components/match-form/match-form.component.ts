@@ -18,6 +18,7 @@ export class MatchFormComponent implements OnInit, OnDestroy {
 
   leaver = false;
   snowflake = false;
+  communication = true;
 
   edit = false;
   subscription;
@@ -58,6 +59,7 @@ export class MatchFormComponent implements OnInit, OnDestroy {
               });
               this.snowflake = this.match.snowflake;
               this.leaver = this.match.leaver;
+              this.communication = this.match.communication;
 
               this.edit = true;
             });
@@ -77,6 +79,7 @@ export class MatchFormComponent implements OnInit, OnDestroy {
 
     result["snowflake"] = this.snowflake;
     result["leaver"] = this.leaver;
+    result["communication"] = this.communication;
 
     if(this.edit) {
       this._firebase.updateMatch(this.id, this.match, result);

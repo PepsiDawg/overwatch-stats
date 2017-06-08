@@ -6,6 +6,10 @@ table {
     cursor: pointer;
 }
 
+.team-icons {
+    margin: 5px;
+}
+
 .negative {
     color: #bc4040;
 }

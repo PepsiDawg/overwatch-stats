@@ -1,0 +1,47 @@
+.title {
+    margin-top: 100px;
+}
+
+.selection-container {
+    margin-bottom: 50px;
+    background: transparent;
+}
+
+select {
+    margin-bottom: 25px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    background-color: transparent;
+    font-size: 1.5em;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;       /* remove default arrow */
+}
+
+.win-lost-container {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    background-color: #D1D1D1;
+    padding: 50px;
+    border-radius: 15px;
+}
+
+.map-container {
+    display: flex;
+    align-content: center;
+}
+
+.doughnut-graph {
+    max-width: 500px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.win-percentage {
+    position: absolute;
+    font-size: 80px;
+    margin-left: calc(50% - 80px);
+    margin-top: calc(50% - 45px);
+    color: rgb(91, 163, 75);
+}

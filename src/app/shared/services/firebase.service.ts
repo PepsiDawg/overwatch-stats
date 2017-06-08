@@ -9,6 +9,7 @@ import { OverwatchServices } from './overwatch.service';
 export class FirebaseService {
   private _matches: FirebaseListObservable<Match[]>;
   private _user;
+  private _mapData: FirebaseListObservable<MapData[]>;
   private _temp_admin = ["pepsidawg00@gmail.com", "mysquishyturtle@gmail.com"];
 
   constructor(private _db: AngularFireDatabase, private _auth: AngularFireAuth, private _ow: OverwatchServices) { 
@@ -31,6 +32,11 @@ export class FirebaseService {
       return Observable.throw(new Error("No user found"));
   }
 
+  getMapData() {
+    this._mapData = this._db.list('/maps') as FirebaseListObservable<MapData[]>;
+    return this._mapData;
+  }
+
   addMatch(match) {
     this._db.database.ref('/matches/').push(match);
     this.updateMapOutcome(match.map, match.outcome, 1);
@@ -50,6 +56,7 @@ export class FirebaseService {
     //   for(let match of result) {
     //     match["leaver"] = false;
     //     match["snowflake"] = false;
+    //     match["communication"] = true;
     //     console.log(match);
     //     matches.update(match.$key, match);
     //   }
@@ -107,6 +114,13 @@ interface Map {
   lost: number
 }
 
+interface MapData {
+  $key: string;
+  won: number;
+  draw: number;
+  lost: number;
+}
+
 interface User {
   timestamp: Date;
   name: string;
@@ -124,4 +138,5 @@ interface Match {
   group_size: number;
   leaver: boolean;
   snowflake: boolean;
+  communication: boolean;
 }

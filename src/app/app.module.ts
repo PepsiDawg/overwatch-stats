@@ -28,6 +28,7 @@ import { FirebaseService } from './shared/services/firebase.service';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { SrGraphComponent } from './pages/graphs/components/sr-graph/sr-graph.component';
 import { UserComponent } from './pages/users/components/user/user.component';
+import { MapGraphComponent } from './pages/graphs/components/map-graph/map-graph.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { UserComponent } from './pages/users/components/user/user.component';
     HomeComponent,
     NotFoundComponent,
     SrGraphComponent,
-    UserComponent
+    UserComponent,
+    MapGraphComponent
   ],
   imports: [
     BrowserModule,

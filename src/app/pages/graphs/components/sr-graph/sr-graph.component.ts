@@ -84,18 +84,15 @@ export class SrGraphComponent implements OnInit {
               data: this.kendrick_sr, 
               label: "Kendrick", 
               fill: false,
-              pointRadius: 3,
-              pointHitRadius: 10
+              pointRadius: 3
             },
             {
               data: this.tim_sr, 
               label: "Tim", 
               fill: false,
-              pointRadius: 3,
-              pointHitRadius: 10
+              pointRadius: 3
             }
           ];
-          console.log("test");
           this.loading = false;
         });
   }

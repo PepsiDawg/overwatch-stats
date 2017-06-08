@@ -1,0 +1,29 @@
+<h1 class="title col-md-12 text-center title">Win / Loss</h1>
+<div class="selection-contianer text-center">
+    <select class="text-center">
+        <option selected (click)="mapSelected(-1)">All</option>
+        <option *ngFor="let map of maps; let i = index" (click)="mapSelected(i)">{{map}}</option>
+    </select>
+</div>
+
+<div class="win-lost-container col-md-12" *ngIf="!loading_data">
+    <div *ngIf="show_all" class="col-md-12 all-container">
+        <canvas baseChart
+                    [datasets]="datasets"
+                    [labels]="labels"
+                    [colors]="colors"
+                    [options]="options"
+                    [legend]="true"
+                    [chartType]="type"></canvas>
+    </div>
+    <div *ngIf="!show_all" class="col-md-12 map-container">
+        <canvas class="doughnut-graph" baseChart
+                    [data]="data"
+                    [labels]="labels"
+                    [colors]="colors"
+                    [options]="options"
+                    [legend]="true"
+                    [chartType]="type"></canvas>
+        <div class="win-percentage">{{winPercentage}}%</div>
+    </div>
+</div>

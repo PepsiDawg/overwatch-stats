@@ -11,6 +11,5 @@ export class UserComponent implements OnInit {
   constructor(private _firebase: FirebaseService) { }
 
   ngOnInit() {
-
   }
 }
