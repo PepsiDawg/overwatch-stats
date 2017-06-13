@@ -29,6 +29,7 @@ import { AuthGuard } from './shared/services/auth-guard.service';
 import { SrGraphComponent } from './pages/graphs/components/sr-graph/sr-graph.component';
 import { UserComponent } from './pages/users/components/user/user.component';
 import { MapGraphComponent } from './pages/graphs/components/map-graph/map-graph.component';
+import { MatchFormTogglesComponent } from './pages/matches/components/match-form-toggles/match-form-toggles.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MapGraphComponent } from './pages/graphs/components/map-graph/map-graph
     NotFoundComponent,
     SrGraphComponent,
     UserComponent,
-    MapGraphComponent
+    MapGraphComponent,
+    MatchFormTogglesComponent
   ],
   imports: [
     BrowserModule,

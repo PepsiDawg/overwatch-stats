@@ -110,7 +110,6 @@ export class MapGraphComponent implements OnInit {
       this.winPercentage = this.calcWin(map);
     }
 
-    console.log(this.datasets, this.options, this.colors, this.type);
     this.loading_data = false;
   }
 

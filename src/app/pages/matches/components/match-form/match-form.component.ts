@@ -90,4 +90,9 @@ export class MatchFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateValues(evt) {
+    this.leaver = evt.leaver;
+    this.snowflake = evt.snowflake;
+    this.communication = evt.communication;
+  }
 }

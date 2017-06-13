@@ -1,0 +1,17 @@
+.toggle-icon {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.positive {
+    color: #4da32c;
+}
+
+.negative {
+    color: #bc4040;
+}
+
+.icon-btn-container {
+    display: flex;
+    margin: 0px 0px 10px 0px;
+}
