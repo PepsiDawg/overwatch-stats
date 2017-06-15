@@ -46,12 +46,8 @@ export class MapGraphComponent implements OnInit {
         }, null, () => { this.loading_names = false; });
   }
 
-  mapSelected(index) {
-    if(index == -1) {
-      this.selected = "All";
-    } else {
-      this.selected = this.maps[index];
-    }
+  mapSelected(evt) {
+    this.selected = evt.target.value;
     this.changeGraph();
   }
 
@@ -100,6 +96,7 @@ export class MapGraphComponent implements OnInit {
           }]
         }
       }
+      this.winPercentage = this.calcAllWin();
     } else {
       this.show_all = false;
       let map = this.map_data[this.selected];
@@ -115,5 +112,17 @@ export class MapGraphComponent implements OnInit {
 
   calcWin(map) {
     return Math.floor((map.won / (map.won + map.draw + map.lost)) * 100);
+  }
+
+  calcAllWin() {
+    let win = 0;
+    let total = 0;
+    for(let mapName in this.map_data) {
+      let map = this.map_data[mapName];
+      total += map.won + map.draw + map.lost;
+      win += map.won;
+    }
+
+    return Math.floor((win / total) * 100);
   }
 }

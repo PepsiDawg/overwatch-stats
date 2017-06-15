@@ -1,0 +1,36 @@
+<div>
+  <form [formGroup]='form'>
+    <div class="form-group">
+      <select 
+        (change)="addPlayer($event)"
+        class="form-select"
+        [disabled]="players.length >= 6"
+        [class.disabled]="players.length >= 6">
+        <option disabled="true">Player</option>
+        <option disabled="true">-------</option>
+        <option *ngFor="let player of playedWith">{{player}}</option>      
+      </select>
+      <input 
+        class="form-control" 
+        id="name" 
+        formControlName="name">
+      <button 
+        class="add-name" 
+        (click)="addName()" 
+        [disabled]="players.length >= 6"
+        [class.disabled]="players.length >= 6">Add</button>
+    </div>
+  </form>
+
+  <div class="players-container">
+    <div 
+      class="player-container"
+      *ngFor="let player of players; let i = index">
+        <span class="player-name">{{player}}</span>
+        <i 
+          class="fa fa-minus-circle text-warning remove" 
+          (click)="removePlayer(i)"
+          aria-hidden="true"></i>
+    </div>
+  </div>
+</div>

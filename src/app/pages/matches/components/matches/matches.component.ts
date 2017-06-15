@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../../../shared/services/firebase.service';
+import { MatchDescriptorsComponent } from '../match-descriptors/match-descriptors.component';
+import { PlayersComponent } from '../players/players.component';
 
 @Component({
   selector: 'app-matches',

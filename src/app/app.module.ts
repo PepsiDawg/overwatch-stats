@@ -7,7 +7,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { routing } from './app.routing';
-import { ChartsModule } from 'ng2-charts';
 
 //Components
 import { AppComponent } from './app.component';
@@ -18,7 +17,7 @@ import { MatchesComponent } from './pages/matches/components/matches/matches.com
 import { MatchFormComponent } from './pages/matches/components/match-form/match-form.component';
 import { HomeComponent } from './pages/home/components/home/home.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
-
+import { ChartsModule } from '../ng2-charts/ng2-charts';
 
 //Services
 import { OverwatchServices } from './shared/services/overwatch.service';
@@ -30,6 +29,9 @@ import { SrGraphComponent } from './pages/graphs/components/sr-graph/sr-graph.co
 import { UserComponent } from './pages/users/components/user/user.component';
 import { MapGraphComponent } from './pages/graphs/components/map-graph/map-graph.component';
 import { MatchFormTogglesComponent } from './pages/matches/components/match-form-toggles/match-form-toggles.component';
+import { PlayersComponent } from './pages/matches/components/players/players.component';
+import { MatchFormPlayersComponent } from './pages/matches/components/match-form-players/match-form-players.component';
+import { MatchDescriptorsComponent } from './pages/matches/components/match-descriptors/match-descriptors.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,10 @@ import { MatchFormTogglesComponent } from './pages/matches/components/match-form
     SrGraphComponent,
     UserComponent,
     MapGraphComponent,
-    MatchFormTogglesComponent
+    MatchFormTogglesComponent,
+    PlayersComponent,
+    MatchFormPlayersComponent,
+    MatchDescriptorsComponent
   ],
   imports: [
     BrowserModule,

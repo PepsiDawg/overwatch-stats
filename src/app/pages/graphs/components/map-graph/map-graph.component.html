@@ -1,11 +1,11 @@
 <h1 class="title col-md-12 text-center title">Win / Loss</h1>
 <div class="selection-contianer text-center">
-    <select class="text-center">
-        <option selected (click)="mapSelected(-1)">All</option>
-        <option *ngFor="let map of maps; let i = index" (click)="mapSelected(i)">{{map}}</option>
+    <select class="text-center" (change)="mapSelected($event)">
+        <option selected>All</option>
+        <option *ngFor="let map of maps">{{map}}</option>
     </select>
 </div>
-
+<h4 class="text-center win-percent">Win Percentage: {{winPercentage}}%</h4>
 <div class="win-lost-container col-md-12" *ngIf="!loading_data">
     <div *ngIf="show_all" class="col-md-12 all-container">
         <canvas baseChart
@@ -24,6 +24,5 @@
                     [options]="options"
                     [legend]="true"
                     [chartType]="type"></canvas>
-        <div class="win-percentage">{{winPercentage}}%</div>
     </div>
 </div>

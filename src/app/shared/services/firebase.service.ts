@@ -50,17 +50,39 @@ export class FirebaseService {
   }
 
   updateDatabase() {
-    // var matches = this._db.list('/matches') as FirebaseListObservable<Match[]>;
+    // this.updateLastGroup(["Kendrick", "Tim"]);
+    // this.updatePlayedWith(["Kendrick", "Tim", "Lindle", "Robbie", "Strange", "Elly", "Dragon", "Ash"]);
 
-    // matches.subscribe(result => {
-    //   for(let match of result) {
-    //     match["leaver"] = false;
-    //     match["snowflake"] = false;
-    //     match["communication"] = true;
-    //     console.log(match);
-    //     matches.update(match.$key, match);
+    // let matches = this._db.database.ref('/matches').once("value");
+
+    // matches.then(result => {
+    //   let allMatches = result.val();
+
+    //   for(let match in allMatches) {
+    //     this._db.database.ref("/matches/")
+    //     let temp_match = allMatches[match];
+    //     temp_match["played_with"] = ["Kendrick", "Tim"];
+    //     this._db.database.ref("/matches/" + match).update(temp_match);
+    //     console.log(temp_match);
     //   }
     // });
+
+  }
+
+  updateLastGroup(group) {
+    this._db.database.ref('last-group').set(group);
+  }
+
+  updatePlayedWith(players) {
+    this._db.database.ref('played-with').set(players);
+  }
+
+  getAllPlayedWith() {
+    return this._db.list("/played-with");
+  }
+
+  getLastGroup() {
+    return this._db.list("/last-group");
   }
 
   removeMatch(key: string, map: string, outcome: string) {

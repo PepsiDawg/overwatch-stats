@@ -5,15 +5,3 @@ table {
 .icon-btn {
     cursor: pointer;
 }
-
-.team-icons {
-    margin: 5px;
-}
-
-.negative {
-    color: #bc4040;
-}
-
-.positive {
-    color: #4da32c;
-}

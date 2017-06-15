@@ -1,0 +1,11 @@
+.player {
+    margin-left: -5px;
+}
+
+.even {
+    color: white;
+}
+
+.odd {
+    color: black;
+}
