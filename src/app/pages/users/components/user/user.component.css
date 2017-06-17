@@ -1,8 +1,39 @@
-.user-container {
-    background-color: white;
-    margin-top: 100px;
-    height: 200px;
+.users-stats {
+    border: 1px solid white;
+    border-radius: 25px;
+    margin-top: 50px;
+}
+
+.user-name-container {
+    border-bottom: 1px solid white;
+    height: 100px;
+    width: 100%;
     display: flex;
     align-items: center;
-    text-align: center;
+}
+
+.user-name {
+    font-size: 3em;
+    width: 50%;
+}
+
+.award {
+    float: left;
+    width: 50%;
+}
+
+.category-container {
+    margin-top: 50px;
+}
+
+.card {
+    float: left;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-container {
+    margin-top: 50px;
 }

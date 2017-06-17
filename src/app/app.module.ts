@@ -11,7 +11,7 @@ import { routing } from './app.routing';
 //Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { OwIconComponent } from './shared/components/ow-icon/ow-icon.component';
+import { OwIconComponent } from './pages/users/components/ow-icon/ow-icon.component';
 import { GraphsComponent } from './pages/graphs/components/graphs/graphs.component';
 import { MatchesComponent } from './pages/matches/components/matches/matches.component';
 import { MatchFormComponent } from './pages/matches/components/match-form/match-form.component';
@@ -32,6 +32,7 @@ import { MatchFormTogglesComponent } from './pages/matches/components/match-form
 import { PlayersComponent } from './pages/matches/components/players/players.component';
 import { MatchFormPlayersComponent } from './pages/matches/components/match-form-players/match-form-players.component';
 import { MatchDescriptorsComponent } from './pages/matches/components/match-descriptors/match-descriptors.component';
+import { PlayerStatsComponent } from './pages/users/components/player-stats/player-stats.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatchDescriptorsComponent } from './pages/matches/components/match-desc
     MatchFormTogglesComponent,
     PlayersComponent,
     MatchFormPlayersComponent,
-    MatchDescriptorsComponent
+    MatchDescriptorsComponent,
+    PlayerStatsComponent
   ],
   imports: [
     BrowserModule,

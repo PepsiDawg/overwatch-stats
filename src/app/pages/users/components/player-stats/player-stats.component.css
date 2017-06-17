@@ -1,0 +1,11 @@
+.award-title {
+    text-align: right;
+    width: 100px;
+    white-space: nowrap;
+}
+
+.award-value {
+    text-align: left;
+    width: 100px;
+    white-space: nowrap;
+}

@@ -1,5 +1,25 @@
-<div class="user-container col-md-8 col-md-offset-2 text-center">
-  <div class="container">
-    <img src="../../../../../assets/placements.png">
+<div
+  *ngIf="!loading"
+  class="users-stats col-md-12">
+  <div class="user-name-container text-center">
+    <div class="user-name">Kendrick</div>
+    <div class="user-name">Tim</div>
+  </div>
+  <div class="card-container">
+    <div class="card">
+      <app-ow-icon [user]="data[0].icon"></app-ow-icon>
+    </div>
+    <div class="card">
+      <app-ow-icon [user]="data[1].icon"></app-ow-icon>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="category-container" *ngFor="let category of categories">
+      <h1 class="text-center">{{capitalize(category)}}</h1>
+      <div class="awards-container">
+        <app-player-stats class="award" [awards]="data[0].stats[category]"></app-player-stats>
+        <app-player-stats class="award" [awards]="data[1].stats[category]"></app-player-stats>
+      </div>
+      <div class="clearfix"></div>
   </div>
 </div>
