@@ -54,6 +54,7 @@ export class UserComponent implements OnInit {
       data.icon = {};
       data.icon.username = user.profile.username;
       data.icon.level = user.profile.level;
+      data.icon.sr = user.profile.competitive.rank;
       data.icon.starURL = user.profile.star;
       data.icon.frameURL = user.profile.levelFrame;
       data.icon.rankURL = user.profile.competitive.rank_img;
