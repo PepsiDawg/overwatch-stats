@@ -1,0 +1,16 @@
+span {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.season-picker {
+    color: rgba(255, 255, 255, 0.5);
+    width: 50px;
+    padding: 0 auto;
+    background-color: transparent;
+    border: 0px;
+    border-radius: 0px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}

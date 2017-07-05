@@ -1,0 +1,16 @@
+<div class="players-container"
+  (mouseenter)="showToolTip=true"
+  (mouseleave)="showToolTip=false">
+  <i 
+    *ngFor="let player of players; let i = index"
+    class="fa fa-user player" 
+    aria-hidden="true"
+    [class.even]="i % 2 == 0"
+    [class.odd]="i * 2 == 1"></i>
+  <div *ngIf="showToolTip" class="tool-tip">
+    <div class="tooltip-title">Players</div>
+    <ul class="tooltip-players">
+      <li *ngFor="let player of players">{{player}}</li>
+    </ul>
+  </div>
+</div>

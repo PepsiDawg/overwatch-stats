@@ -13,6 +13,7 @@ import { MatchFormPlayersComponent } from '../match-form-players/match-form-play
 })
 export class MatchFormComponent implements OnInit, OnDestroy {
   maps: string[];
+  currentSeason = -1;
   title: string;
   players = ["Kendrick", "Tim"];
   playedWith = [];
@@ -26,6 +27,8 @@ export class MatchFormComponent implements OnInit, OnDestroy {
 
   edit = false;
   subscription;
+
+  loading = true;
 
   constructor(
     private _overwatchServices: OverwatchServices, 
@@ -43,49 +46,56 @@ export class MatchFormComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    this._overwatchServices.getMaps()
-        .subscribe(res => {
-          this.maps = res;
+      this.subscription = Observable.combineLatest(
+        this._overwatchServices.getMaps(),
+        this._overwatchServices.getClienCurrentSeason(),
+        this._firebase.getAllPlayedWith(),
+        this._firebase.getLastGroup(),
+        this._route.params
+      ).map(result => {
+        return new Object({
+          maps: result[0],
+          season: result[1],
+          playedWith: result[2],
+          lastGroup: result[3],
+          params: result[4]
         });
-    this.subscription = this._route.params.subscribe(params => {
-      this.id = params["id"];
-      if(this.id) {
-        this.title = "Edit Match";
-        Observable.combineLatest(
-          this._firebase.getMatch(this.id),
-          this._firebase.getAllPlayedWith(),
-          this._firebase.getLastGroup()
-        ).subscribe(result => {
-          let temp_match = result[0].val();
+      }).subscribe((result:any) => {
+        this.id = result.params["id"];
+        this.maps = result.maps;
+        this.playedWith = this.fromFirebaseToArray(result.playedWith);
+        this.players = this.fromFirebaseToArray(result.lastGroup);
 
-          this.playedWith = this.fromFirebaseToArray(result[1]);
-          this.players = this.fromFirebaseToArray(result[2]);
+        if(this.id && this.currentSeason != -1) {
+          this._router.navigate(['matches']);
+        } else {
+          this.currentSeason = result.season;
+        }
 
-          this.match = temp_match;
+        if(this.id) {
+          this.title = "Edit Match"
+          this._firebase.getMatch(this.id, this.currentSeason)
+              .then(match => {
+                this.match = match.val();
+                this.edit = true;
 
-          this.form.setValue({
-            map: this.match.map,
-            outcome: this.match.outcome,
-            kendrick_sr: this.match.kendrick_sr,
-            tim_sr: this.match.tim_sr
-          });
-          this.snowflake = this.match.snowflake;
-          this.leaver = this.match.leaver;
-          this.communication = this.match.communication;
-          this.players = this.match.played_with;
-          this.edit = true;
-        });
-      } else {
-        this.title = "Add a Match"
-        Observable.combineLatest(
-          this._firebase.getAllPlayedWith(),
-          this._firebase.getLastGroup()
-        ).subscribe(result => {
-          this.playedWith = this.fromFirebaseToArray(result[0]);
-          this.players = this.fromFirebaseToArray(result[1]);
-        });
-      }
-    });
+                this.form.setValue({
+                  map: this.match.map,
+                  outcome: this.match.outcome,
+                  kendrick_sr: this.match.kendrick_sr,
+                  tim_sr: this.match.tim_sr
+                });
+                this.snowflake = this.match.snowflake;
+                this.leaver = this.match.leaver;
+                this.communication = this.match.communication;
+                this.players = this.match.played_with;
+                this.loading = false;
+              });
+        } else {
+          this.title = "Add a Match"
+          this.loading = false;
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -102,10 +112,10 @@ export class MatchFormComponent implements OnInit, OnDestroy {
     result["played_with"] = this.players;
 
     if(this.edit) {
-      this._firebase.updateMatch(this.id, this.match, result);
+      this._firebase.updateMatch(this.id, this.match, result, this.currentSeason);
       this._router.navigate(['matches']);
     } else {
-      this._firebase.addMatch(result);
+      this._firebase.addMatch(result, this.currentSeason);
       this._firebase.updateLastGroup(this.players);
       this._router.navigate(['graphs']);
     }

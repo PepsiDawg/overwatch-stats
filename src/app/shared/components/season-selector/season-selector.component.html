@@ -1,0 +1,10 @@
+<form class="navbar-form form-inline">
+  <div class="form-group">
+    <span>Season:</span>
+    <select class="form-control season-picker" (change)="seasonChanged($event)">
+      <option
+        *ngFor="let season of seasons"
+        [selected]="season == currentSeason">{{season}}</option>
+    </select>
+  </div>
+</form>

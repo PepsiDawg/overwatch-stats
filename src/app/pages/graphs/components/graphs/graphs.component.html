@@ -1,2 +1,5 @@
-<app-sr-graph></app-sr-graph>
-<app-map-graph></app-map-graph>
+<h1>Graphs <small *ngIf="!_loading">Season {{_currentSeason}}</small></h1>
+<div *ngIf="!_loading">
+    <app-sr-graph></app-sr-graph>
+    <app-map-graph></app-map-graph>
+</div>

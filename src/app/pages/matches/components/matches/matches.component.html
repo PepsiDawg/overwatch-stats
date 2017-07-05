@@ -1,4 +1,4 @@
-<h1>Matches</h1>
+<h1>Matches <small *ngIf="!loading">Season {{_currentSeason}}</small></h1>
 <table class="table table-striped table-hover" *ngIf="_matches.length > 0">
   <thead>
     <th class="text-center">Match</th>
@@ -20,7 +20,7 @@
         <app-match-descriptors [match]="match"></app-match-descriptors>
       </td>
       <td>
-        <app-players [players]="match.played_with"></app-players>
+        <app-match-players [players]="match.played_with"></app-match-players>
       </td>
       <td>
         <a (click)="edit(i)" class="icon-btn">

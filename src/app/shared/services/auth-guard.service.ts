@@ -13,10 +13,13 @@ export class AuthGuard implements CanActivate {
 
     canActivate() {
         var admin =  this._auth.authState.flatMap((res, index) => {
-            return this._firebaseService.getUser(res.uid)
-                       .map(res => {
-                            return res.isAdmin;
-                       }).take(1);
+            if(res != null) {
+                return this._firebaseService.getUser(res.uid)
+                        .then(result => {
+                            var user = result.val();
+                            return user.isAdmin;
+                        });
+            }
         });
 
         admin.subscribe(res => {

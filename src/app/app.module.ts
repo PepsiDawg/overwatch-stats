@@ -29,10 +29,13 @@ import { SrGraphComponent } from './pages/graphs/components/sr-graph/sr-graph.co
 import { UserComponent } from './pages/users/components/user/user.component';
 import { MapGraphComponent } from './pages/graphs/components/map-graph/map-graph.component';
 import { MatchFormTogglesComponent } from './pages/matches/components/match-form-toggles/match-form-toggles.component';
-import { PlayersComponent } from './pages/matches/components/players/players.component';
 import { MatchFormPlayersComponent } from './pages/matches/components/match-form-players/match-form-players.component';
 import { MatchDescriptorsComponent } from './pages/matches/components/match-descriptors/match-descriptors.component';
 import { PlayerStatsComponent } from './pages/users/components/player-stats/player-stats.component';
+import { MatchPlayersComponent } from './pages/matches/components/match-players/match-players.component';
+import { AdminPanelComponent } from './pages/admin/components/admin-panel/admin-panel.component';
+import { AddSeasonComponent } from './pages/admin/components/add-season/add-season.component';
+import { SeasonSelectorComponent } from './shared/components/season-selector/season-selector.component';
 
 @NgModule({
   declarations: [
@@ -48,10 +51,13 @@ import { PlayerStatsComponent } from './pages/users/components/player-stats/play
     UserComponent,
     MapGraphComponent,
     MatchFormTogglesComponent,
-    PlayersComponent,
     MatchFormPlayersComponent,
     MatchDescriptorsComponent,
-    PlayerStatsComponent
+    PlayerStatsComponent,
+    MatchPlayersComponent,
+    AdminPanelComponent,
+    AddSeasonComponent,
+    SeasonSelectorComponent
   ],
   imports: [
     BrowserModule,

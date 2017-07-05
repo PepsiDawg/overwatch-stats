@@ -13,59 +13,48 @@ export class FirebaseService {
   private _temp_admin = ["pepsidawg00@gmail.com", "mysquishyturtle@gmail.com"];
 
   constructor(private _db: AngularFireDatabase, private _auth: AngularFireAuth, private _ow: OverwatchServices) { 
-  }
+}
 
-  getMatches() {
-    this._matches = this._db.list('/matches') as FirebaseListObservable<Match[]>;
+  getMatches(season) {
+    this._matches = this._db.list('/seasons/season_' + season + "/matches") as FirebaseListObservable<Match[]>;
     return this._matches;
   }
 
-  getMatch(key) {
-    return this._db.database.ref('/matches/' + key).once('value');
+  getMatch(key, season) {
+    return this._db.database.ref('/seasons/season_' + season + "/matches/" + key).once('value');
   }
 
   getUser(uid) {
-      this._user = this._db.object('/users/' + uid) as FirebaseObjectObservable<User>;
+      this._user = this._db.database.ref('/users/' + uid).once("value");
       if(this._user) {
         return this._user;
       }
       return Observable.throw(new Error("No user found"));
   }
 
-  getMapData() {
-    this._mapData = this._db.list('/maps') as FirebaseListObservable<MapData[]>;
+  getMapData(season) {
+    let path = "seasons/season_" + season + "/maps/"
+    console.log(path);
+    this._mapData = this._db.list(path) as FirebaseListObservable<MapData[]>;
     return this._mapData;
   }
 
-  addMatch(match) {
-    this._db.database.ref('/matches/').push(match);
-    this.updateMapOutcome(match.map, match.outcome, 1);
+  addMatch(match, season) {
+    let path = 'seasons/season_' + season + "/matches/";
+    this._db.database.ref(path).push(match);
+    this.updateMapOutcome(match.map, match.outcome, 1, season);
   }
 
-  updateMatch(key, oldMatch, match) {
-    this._db.database.ref('matches/' + key).update(match);
+  updateMatch(key, oldMatch, match, season) {
+    let path = 'seasons/season_' + season + "/matches/" + key
+    console.log(path, key)
+    this._db.database.ref(path).update(match);
     if(oldMatch.outcome != match.outcome) {
-      this.updateMultiOutcome(match.map, oldMatch.outcome, match.outcome);
+      this.updateMultiOutcome(match.map, oldMatch.outcome, match.outcome, season);
     }
   }
 
   updateDatabase() {
-    // this.updateLastGroup(["Kendrick", "Tim"]);
-    // this.updatePlayedWith(["Kendrick", "Tim", "Lindle", "Robbie", "Strange", "Elly", "Dragon", "Ash"]);
-
-    // let matches = this._db.database.ref('/matches').once("value");
-
-    // matches.then(result => {
-    //   let allMatches = result.val();
-
-    //   for(let match in allMatches) {
-    //     this._db.database.ref("/matches/")
-    //     let temp_match = allMatches[match];
-    //     temp_match["played_with"] = ["Kendrick", "Tim"];
-    //     this._db.database.ref("/matches/" + match).update(temp_match);
-    //     console.log(temp_match);
-    //   }
-    // });
 
   }
 
@@ -85,25 +74,28 @@ export class FirebaseService {
     return this._db.list("/last-group");
   }
 
-  removeMatch(key: string, map: string, outcome: string) {
-    this._db.database.ref('/matches/' + key).remove();
-    this.updateMapOutcome(map, outcome, -1);
+  removeMatch(key: string, map: string, outcome: string, season) {
+    let path = "seasons/season_" + season + "/matches/" + key;
+    this._db.database.ref(path).remove();
+    this.updateMapOutcome(map, outcome, -1, season);
   }
 
-  updateMultiOutcome(map: string, oldOutcome: string, newOutcome: string) {
-    this._db.database.ref('/maps/' + map).once('value').then(snapshot => {
+  updateMultiOutcome(map: string, oldOutcome: string, newOutcome: string, season) {
+    let path = 'seasons/season_' + season + '/maps/' + map;
+    this._db.database.ref(path).once('value').then(snapshot => {
         var record = snapshot.val();
         record[oldOutcome.toLowerCase()] += -1;
         record[newOutcome.toLowerCase()] += 1;
-        this._db.database.ref('/maps/' + map).update(record);
+        this._db.database.ref(path).update(record);
     });
   }
 
-  updateMapOutcome(map: string, outcome: string, value: number) {
-    this._db.database.ref('/maps/' + map).once('value').then(snapshot => {
+  updateMapOutcome(map: string, outcome: string, value: number, season) {
+    let path = 'seasons/season_' + season + '/maps/' + map;
+    this._db.database.ref(path).once('value').then(snapshot => {
         var record = snapshot.val();
         record[outcome.toLowerCase()] += value;
-        this._db.database.ref('/maps/' + map).update(record);
+        this._db.database.ref(path).update(record);
     });
   }
 
@@ -128,6 +120,45 @@ export class FirebaseService {
   logout() {
     return this._auth.auth.signOut();
   }
+
+  setupSeason(season) {
+    let basePath = "seasons/season_" + season;
+    let db_season = {};
+    let temp_maps = { won: 0, draw: 0, lost: 0 };
+    this._ow.getMaps().subscribe(result => {
+      db_season["maps"] = {};
+      for(let map of result) {
+        db_season["maps"][map] = temp_maps;
+      }
+      db_season["matches"] = {};
+      this._db.database.ref(basePath).set(db_season);
+    });
+    let seasons = this._db.database.ref("seasons/tracked").once("value");
+
+    seasons.then(result => {
+      let seasonArr = result.val();
+      seasonArr.push(season);
+      seasonArr.sort();
+      this._db.database.ref("seasons/tracked").set(seasonArr);
+    });
+  }
+
+  setCurrentSeason(season) {
+    this._db.database.ref("current_season").set(season);
+  }
+
+  getCurrentSeason() {
+    return this._db.object('current_season');
+  }
+
+  getTrackedSeasons() {
+    return this._db.object("seasons/tracked");
+  }
+
+  getSeason(season) {
+    return this._db.database.ref("seasons/season_" + season).once("value");
+  }
+
 }
 
 interface Map {

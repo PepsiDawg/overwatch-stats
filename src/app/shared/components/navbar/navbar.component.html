@@ -14,11 +14,17 @@
       <ul class="nav navbar-nav navbar-left">
         <li><a class="nav-link" routerLink="graphs">Graphs</a></li>
         <li><a class="nav-link" routerLink="users">Users</a></li>
-        <li *ngIf='_loggedIn'>
+        <li *ngIf='_loggedIn && _isAdmin'>
           <a class="nav-link" routerLink="matches/new">Add Match</a>
         </li>
-        <li *ngIf='_loggedIn'>
+        <li *ngIf='_loggedIn && _isAdmin'>
           <a class="nav-link" routerLink="matches">Matches</a>
+        </li>
+        <li *ngIf='_loggedIn && _isAdmin'>
+          <a class="nav-link">Alt</a>
+        </li>
+        <li *ngIf='_loggedIn && _isAdmin'>
+          <a class="nav-link" routerLink="admin">Admin</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -29,6 +35,11 @@
           <a class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
+      <app-season-selector 
+        class="navbar-right"
+        (update)="seasonUpdated($event)"
+        [currentSeason]="_currentSeason"
+        [seasons]="_seasons"></app-season-selector>
     </div><!--/.nav-collapse -->
   </div>
 </nav>

@@ -15,14 +15,14 @@ export class MapGraphComponent implements OnInit {
   options = {};
   labels = [];
   type;
+  season;
 
   show_all = true;
  
   maps = [];
   map_data = {};
 
-  loading_data = true;
-  loading_names = true;
+  loading = true;
   selected = "All";
 
   winPercentage = 0;
@@ -30,20 +30,25 @@ export class MapGraphComponent implements OnInit {
   constructor(private _firebase: FirebaseService, private _overwatch: OverwatchServices) { }
 
   ngOnInit() {
-    this._firebase.getMapData()
-        .subscribe(result => {
-          for(let map of result) {
-            this.map_data[map.$key] = {}
-            this.map_data[map.$key]["won"] = map.won;
-            this.map_data[map.$key]["draw"] = map.draw;
-            this.map_data[map.$key]["lost"] = map.lost;
-          }
-          this.changeGraph();
-        });
-    this._overwatch.getMaps()
-        .subscribe(result => {
-          this.maps = result;
-        }, null, () => { this.loading_names = false; });
+
+    Observable.combineLatest(
+      this._overwatch.getMaps(),
+      this._overwatch.getClienCurrentSeason()
+    ).subscribe(result => {
+      this.maps = result[0];
+      this.season = result[1];
+
+      this._firebase.getMapData(this.season)
+          .subscribe(result => {
+            for(let map of result) {
+              this.map_data[map.$key] = {}
+              this.map_data[map.$key]["won"] = map.won;
+              this.map_data[map.$key]["draw"] = map.draw;
+              this.map_data[map.$key]["lost"] = map.lost;
+            }
+            this.changeGraph();
+          });
+    });
   }
 
   mapSelected(evt) {
@@ -52,7 +57,7 @@ export class MapGraphComponent implements OnInit {
   }
 
   changeGraph() {
-    this.loading_data = true;
+    this.loading = true;
 
     this.data = [];
     this.datasets = [];
@@ -107,7 +112,7 @@ export class MapGraphComponent implements OnInit {
       this.winPercentage = this.calcWin(map);
     }
 
-    this.loading_data = false;
+    this.loading = false;
   }
 
   calcWin(map) {

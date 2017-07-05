@@ -1,4 +1,4 @@
-<h1>{{title}}</h1>
+<h1>{{title}} <small *ngIf="!loading">Season {{currentSeason}}</small></h1>
 <form [formGroup]='form' (ngSubmit)="saveMap()">
   <div class="form-group">
     <label for="map">Map</label>

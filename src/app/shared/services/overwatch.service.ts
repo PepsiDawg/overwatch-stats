@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class OverwatchServices {
-    private _profileURL = "http://ow-user-api.herokuapp.com/profile/pc/us/";
-    private _statURL = "http://ow-user-api.herokuapp.com/stats/pc/us/";
+    private _profileURL = "https://ow-user-api.herokuapp.com/profile/pc/us/";
+    private _statURL = "https://ow-user-api.herokuapp.com/stats/pc/us/";
     private _maps: string[] = [
         "Dorado",
         "Eichenwalde",
@@ -21,8 +21,10 @@ export class OverwatchServices {
         "Route 66",
         "Temple of Anubis",
         "Volskaya Industries",
-        "Watchpoint: Gibraltar"
+        "Watchpoint: Gibraltar",
+        "Horizon: Lunar Colony"
     ];
+    private clientCurrentSeason = -1;
 
 
     constructor(private _http: Http) {
@@ -41,5 +43,15 @@ export class OverwatchServices {
 
     getMaps() {
         return Observable.of(this._maps);
+    }
+
+    setClientCurrentSeason(season) {
+        this.clientCurrentSeason = season;
+    }
+
+    getClienCurrentSeason() {
+        return Observable.interval(250)
+            .map(() => this.clientCurrentSeason)
+            .distinctUntilChanged();
     }
 }

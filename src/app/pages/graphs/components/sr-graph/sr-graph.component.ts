@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { FirebaseService } from '../../../../shared/services/firebase.service';
+import { OverwatchServices } from '../../../../shared/services/overwatch.service';
 
 @Component({
   selector: 'app-sr-graph',
@@ -9,6 +11,7 @@ import { FirebaseService } from '../../../../shared/services/firebase.service';
 export class SrGraphComponent implements OnInit {
   loading = true;
   matches;
+  season;
 
   drag = false;
   showSize = 50;
@@ -49,7 +52,7 @@ export class SrGraphComponent implements OnInit {
     }
   }
 
-  constructor(private _firebase: FirebaseService) { 
+  constructor(private _firebase: FirebaseService, private _overwatchServices: OverwatchServices) { 
   }
 
   customTooltip(tooltipItem, data) {
@@ -74,7 +77,10 @@ export class SrGraphComponent implements OnInit {
   }
 
   getData() {
-    this._firebase.getMatches()
+    this._overwatchServices.getClienCurrentSeason()
+    .subscribe(result =>{
+      this.season = result;
+      this._firebase.getMatches(this.season)
         .subscribe(result => {
           this.matches = result;
 
@@ -98,6 +104,7 @@ export class SrGraphComponent implements OnInit {
           this.loading = false;
           
         });
+    })
   }
 
   mouseDown(evt) {

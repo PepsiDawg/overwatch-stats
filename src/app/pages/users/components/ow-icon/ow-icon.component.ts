@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./ow-icon.component.css']
 })
 export class OwIconComponent implements OnInit {
-  @Input() user: {};
+  @Input() user: any;
 
   constructor() { }
 

@@ -1,0 +1,41 @@
+.player {
+    margin-left: -5px;
+}
+
+.even {
+    color: white;
+}
+
+.odd {
+    color: black;
+}
+
+.players-container {
+    position: relative;
+}
+
+.tool-tip {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: white;
+    z-index: 1000;
+
+    border-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.tooltip-players {
+    padding: 15px 10px;
+    list-style-type: none;
+}
+
+.tooltip-title {
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    font-size: 25;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}

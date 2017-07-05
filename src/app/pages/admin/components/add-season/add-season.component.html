@@ -1,0 +1,10 @@
+<div class="season-form">
+  <div class="input-group">
+    <input type="number" class="form-control" placeholder="Season" (change)="valueChanged($event)" value="1">
+    <div *ngIf="season_error" class="alert-warning text-center">Invalid season entered!</div>
+    <div>
+      <button class="btn btn-large btn-success btn-left" (click)="addSeason()">Add Season</button>
+      <button class="btn btn-large btn-info btn-right" (click)="makeCurrent()">Make Current</button>
+    </div>
+  </div>
+</div>
